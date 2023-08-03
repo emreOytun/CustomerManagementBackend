@@ -65,7 +65,7 @@ public class CustomerManager implements CustomerService {
             throw new EntityNotFoundException();
         }
 
-        CustomerDto customerGetDto = modelMapperService.map(customer, CustomerDto.class);
+        CustomerDto customerGetDto = modelMapperService.mapComposed(customer, CustomerDto.class);
         return customerGetDto;
     }
 
@@ -75,7 +75,7 @@ public class CustomerManager implements CustomerService {
 
         List<Customer> customerList = customerDao.findAll();
         List<CustomerDto> resultList = customerList.stream()
-                .map(customer -> modelMapperService.map(customer, CustomerDto.class)).toList();
+                .map(customer -> modelMapperService.mapComposed(customer, CustomerDto.class)).toList();
 
         return resultList;
     }
@@ -89,7 +89,7 @@ public class CustomerManager implements CustomerService {
 
         List<Customer> customerList = customerDao.findAll(pageable).getContent();
         List<CustomerDto> resultList = customerList.stream()
-                .map(customer -> modelMapperService.map(customer, CustomerDto.class)).toList();
+                .map(customer -> modelMapperService.mapComposed(customer, CustomerDto.class)).toList();
         return resultList;
     }
 
@@ -101,7 +101,7 @@ public class CustomerManager implements CustomerService {
         }
 
         CustomerWithPostsDto customerDto = new CustomerWithPostsDto();
-        modelMapperService.copyProperties(customer, customerDto, "posts");
+        modelMapperService.copyPropertiesComposed(customer, customerDto, "posts");
 
         List<PostDto> posts = customer.getPosts().stream().map(post -> {
             PostDto postDto = new PostDto();
