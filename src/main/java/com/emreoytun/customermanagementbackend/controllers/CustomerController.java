@@ -1,6 +1,7 @@
 package com.emreoytun.customermanagementbackend.controllers;
 
-import com.emreoytun.customermanagementbackend.service.CustomerService;
+import com.emreoytun.customermanagementbackend.service.customer.CustomerService;
+import com.emreoytun.customermanagementdata.dto.authentication.request.RegisterRequest;
 import com.emreoytun.customermanagementdata.dto.customer.CustomerDto;
 import com.emreoytun.customermanagementdata.dto.customer.CustomerWithPostsDto;
 import com.emreoytun.customermanagementdata.dto.customer.requests.CustomerUpdateRequest;
@@ -8,7 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import jakarta.validation.Valid;
+
 import java.util.List;
 
 @RestController
@@ -46,7 +47,7 @@ public class CustomerController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.OK)
-    public void updateCustomer(@RequestBody @Valid CustomerUpdateRequest customerUpdateDto) {
+    public void updateCustomer(@RequestBody CustomerUpdateRequest customerUpdateDto) {
         customerService.updateCustomer(customerUpdateDto);
     }
 
@@ -56,5 +57,21 @@ public class CustomerController {
         customerService.deleteCustomer(id);
     }
 
+    @GetMapping("/{username}/checkExistence")
+    @ResponseStatus(HttpStatus.OK)
+    public boolean checkExists(@PathVariable("username") String username) {
+        return customerService.checkExists(username);
+    }
 
+    @PostMapping
+    @ResponseStatus(HttpStatus.OK)
+    public void addCustomer(@RequestBody RegisterRequest request) {
+       customerService.addCustomer(request);
+    }
+
+    @GetMapping("/{username}")
+    @ResponseStatus(HttpStatus.OK)
+    public CustomerDto getCustomerByUsername(@PathVariable("username") String username) {
+        return customerService.getCustomerByUsername(username);
+    }
 }
