@@ -33,9 +33,9 @@ public class CustomerController {
         return customerService.getCustomersByPageNo(pageSize, pageNo);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/getById")
     @ResponseStatus(HttpStatus.OK)
-    public CustomerDto getCustomerById(@PathVariable(value = "id") int id) {
+    public CustomerDto getCustomerById(@RequestParam(value = "id") int id) {
         return customerService.getCustomerById(id);
     }
 
@@ -46,7 +46,7 @@ public class CustomerController {
     }
 
     @PutMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateCustomer(@RequestBody CustomerUpdateRequest customerUpdateDto) {
         customerService.updateCustomer(customerUpdateDto);
     }
@@ -64,7 +64,7 @@ public class CustomerController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.OK)
+    @ResponseStatus(HttpStatus.CREATED)
     public void addCustomer(@RequestBody RegisterRequest request) {
        customerService.addCustomer(request);
     }

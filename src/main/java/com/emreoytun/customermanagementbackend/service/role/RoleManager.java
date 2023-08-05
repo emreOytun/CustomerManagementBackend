@@ -1,7 +1,7 @@
 package com.emreoytun.customermanagementbackend.service.role;
 
-import com.emreoytun.customermanagementdata.entities.Role;
-import com.emreoytun.customermanagementdata.repository.RoleDao;
+import com.emreoytun.customermanagementbackend.entities.Role;
+import com.emreoytun.customermanagementbackend.repository.RoleDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

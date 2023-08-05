@@ -3,8 +3,8 @@ package com.emreoytun.customermanagementbackend.service.user;
 import com.emreoytun.customermanagementdata.dto.ModelMapperService;
 import com.emreoytun.customermanagementdata.dto.role.RoleDto;
 import com.emreoytun.customermanagementdata.dto.user.UserDto;
-import com.emreoytun.customermanagementdata.entities.User;
-import com.emreoytun.customermanagementdata.repository.UserDao;
+import com.emreoytun.customermanagementbackend.entities.User;
+import com.emreoytun.customermanagementbackend.repository.UserDao;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

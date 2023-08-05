@@ -8,10 +8,10 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @SpringBootApplication
-@EntityScan("com.emreoytun.customermanagementdata.entities")
+@EntityScan("com.emreoytun.customermanagementbackend.entities")
 @ComponentScan(basePackages = "com.emreoytun.customermanagementdata")
 @ComponentScan(basePackages = "com.emreoytun.customermanagementbackend")
-@EnableJpaRepositories("com.emreoytun.customermanagementdata.repository")
+@EnableJpaRepositories("com.emreoytun.customermanagementbackend.repository")
 @EnableDiscoveryClient
 public class CustomerManagementBackendApplication {
 

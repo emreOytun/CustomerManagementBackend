@@ -1,6 +1,6 @@
 package com.emreoytun.customermanagementbackend.service.role;
 
-import com.emreoytun.customermanagementdata.entities.Role;
+import com.emreoytun.customermanagementbackend.entities.Role;
 
 public interface RoleService {
 
