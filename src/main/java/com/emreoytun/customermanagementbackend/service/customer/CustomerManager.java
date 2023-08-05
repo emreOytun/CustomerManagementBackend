@@ -44,7 +44,7 @@ public class CustomerManager implements CustomerService {
 
         List<Customer> customerList = customerDao.findAll();
         List<CustomerDto> resultList = customerList.stream()
-                .map(customer -> modelMapperService.mapComposed(customer, CustomerDto.class)).toList();
+                .map(customer -> modelMapperService.map(customer, CustomerDto.class)).toList();
 
         return resultList;
     }
@@ -58,7 +58,7 @@ public class CustomerManager implements CustomerService {
 
         List<Customer> customerList = customerDao.findAll(pageable).getContent();
         List<CustomerDto> resultList = customerList.stream()
-                .map(customer -> modelMapperService.mapComposed(customer, CustomerDto.class)).toList();
+                .map(customer -> modelMapperService.map(customer, CustomerDto.class)).toList();
         return resultList;
     }
 
@@ -71,7 +71,7 @@ public class CustomerManager implements CustomerService {
             return null;
         }
 
-        CustomerDto customerGetDto = modelMapperService.mapComposed(customer, CustomerDto.class);
+        CustomerDto customerGetDto = modelMapperService.map(customer, CustomerDto.class);
         return customerGetDto;
     }
 
@@ -83,7 +83,7 @@ public class CustomerManager implements CustomerService {
         }
 
         CustomerWithPostsDto customerDto = new CustomerWithPostsDto();
-        modelMapperService.copyPropertiesComposed(customer, customerDto, "posts");
+        modelMapperService.copyProperties(customer, customerDto, "posts");
 
         List<PostDto> posts = customer.getPosts().stream().map(post -> {
             PostDto postDto = new PostDto();
@@ -135,13 +135,12 @@ public class CustomerManager implements CustomerService {
         c.setFirstName(request.getFirstName());
         c.setLastName(request.getLastName());
 
-        c.setUser(new User());
-        c.getUser().setUsername(request.getUsername());
-        c.getUser().setPassword(request.getPassword());
+        c.setUsername(request.getUsername());
+        c.setPassword(request.getPassword());
 
         Role role = roleService.findByName("CUSTOMER");
-        c.getUser().setRoles(new HashSet<>());
-        c.getUser().getRoles().add(role);
+        c.setRoles(new HashSet<>());
+        c.getRoles().add(role);
 
         customerDao.save(c);
     }
