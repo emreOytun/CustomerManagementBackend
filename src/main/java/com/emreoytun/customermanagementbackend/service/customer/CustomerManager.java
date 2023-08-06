@@ -39,8 +39,6 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public List<CustomerDto> getAllCustomers() {
-        logger.info("Entering getAllCustomers method");
-
         List<Customer> customerList = customerDao.findAll();
         List<CustomerDto> resultList = customerList.stream()
                 .map(customer -> modelMapperService.map(customer, CustomerDto.class)).toList();
@@ -50,8 +48,6 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public List<CustomerDto> getCustomersByPageNo(int pageSize, int pageNo) {
-        logger.info("Entering getCustomersByPageNo method");
-
         // In Spring, pages start from 0.
         Pageable pageable = PageRequest.of(pageNo - 1, pageSize);
 
@@ -63,8 +59,6 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public CustomerDto getCustomerById(int id) {
-        logger.info("Entering getCustomerById method");
-
         Customer customer = customerDao.findById(id);
         if (customer == null) {
             return null;
@@ -97,39 +91,30 @@ public class CustomerManager implements CustomerService {
 
     @Override
     public void updateCustomer(CustomerUpdateRequest customerUpdateDto) {
-        logger.info("Entering updateCustomer method : " + customerUpdateDto);
-
         Customer customer = customerDao.findById(customerUpdateDto.getId());
 
         modelMapperService.copyProperties(customerUpdateDto, customer);
         customerDao.save(customer);
-
         logger.info("Customer with id " + customer.getId() + " is updated");
     }
 
     @Override
     @Transactional
     public void deleteCustomer(int id) {
-        logger.info("Entering deleteCustomer method");
-
         Customer customer = customerDao.findById(id);
 
         postService.deleteAllByCustomerId(id); // delete posts before deleting the customer
         customerDao.delete(customer);
-
         logger.info("Customer with id " + id + " is deleted");
     }
 
     @Override
     public boolean checkExists(String username) {
-        logger.info("Entering checkExists method");
         return userService.checkExistenceByUsername(username);
     }
 
     @Override
     public void addCustomer(RegisterRequest request) {
-        logger.info("Entering add customer method. request : " + request);
-
         Customer c = new Customer();
         c.setFirstName(request.getFirstName());
         c.setLastName(request.getLastName());
